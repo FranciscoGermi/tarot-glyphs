@@ -21,7 +21,7 @@ Rewritten in place at each handoff (`CLAUDE.md`). Near 250 lines at most.
 - **The documents**: `DECISIONS.md` (the project, the sources, the inherited glyph findings, the fonts'
   licence against the runtime), `PLAN.md`, `PORT.md`, `THIRD_PARTY_LICENSES.md`.
 
-Nothing is committed: the repository is initialised with no commits.
+Published at <https://github.com/FranciscoGermi/tarot-glyphs> (public), branch `main`.
 
 ## What is next
 
