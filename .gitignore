@@ -1,0 +1,20 @@
+build/
+out/
+node_modules/
+dist/
+
+.vs/
+.idea/
+.vscode/
+.playwright-mcp/
+
+*.log
+.DS_Store
+__pycache__/
+
+# Crawled card scans, PDFs and pages: regenerable, and `py tools/crawl_steve_p.py` makes them again.
+# Findings stay tracked; pixels do not.
+research/sources/
+
+# Reference images, clips and boards a study fetches; each study's Reproducing section fetches them again.
+research/references/

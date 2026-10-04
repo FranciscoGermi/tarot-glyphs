@@ -1,0 +1,513 @@
+; glyph-patterns.txt - THE PATTERNS A MATERIAL CAN PRINT. engine/glyph/patterns.hpp reads
+; it, and a material asks for a pattern by the name given here.
+;
+; DRAW A PATTERN, DON'T DESCRIBE IT. One block per pattern:
+;
+;     pattern <name>            a-z, 0-9, - and _ ; `none` is taken
+;     <the rows, exactly as they should look>
+;     end
+;
+; - Inside a block every character is a glyph except a SPACE, which is an empty
+;   cell - so text copied out of a pattern generator pastes in untouched. A `;`
+;   inside a block is a glyph too; comments go between blocks.
+; - Short rows are padded with empty cells, so an editor trimming trailing spaces
+;   does not change a pattern.
+; - The block is ONE TILE and it repeats over each face of the costume. Its top row
+;   is the top, and its middle sits on the middle of the body, so a big block pasted
+;   whole shows its centre rather than a seam.
+; - `pattern <name> scatter` starts every face at its own place in the tile. Use it
+;   for random noise; leave it off for geometry, so the chest and yoke line up.
+; - Only code page 437 can be drawn - ASCII plus ░▒▓ █▄▀▌▐ ─│┌┐└┘├┤┬┴┼ ═║╔╗╚╝╠╣╦╩╬
+;   and the rest of the IBM PC set. Anything else is refused with its line and column.
+; - A tall region draws each cell twice as high as it is wide, the shape pattern
+;   sites draw for; square is 1:1. That is the look's `cell`, not the pattern's.
+;
+; SOURCES: patterns generated with an online ASCII-art pattern maker (its output is
+; free to use, no attribution needed) and generic motifs. No signed gallery pieces.
+
+; ---- the prototype's B look, as tiles ----
+; Generated once from B's glyph sets at its 80% density - random, so `scatter`.
+
+pattern rags scatter
+∙░║ ═║▓▒▒║∙▒╬≡
+║▓∙ ▒∙ ▒▒░ ░║∙║▓
+▓╬ ≡╬∙║▓∙  ╬▒ ≡∙
+▓ ∙▓▒≡═░ ╬║ ║░∙▒
+═∙∙░▓║▓▒∙▒≡≡═ ░≡
+╬═╬ ░║ ╬∙╬╬ ≡░║═
+≡═∙═░≡≡∙ ≡═ ≡╬▓≡
+╬═║≡║▒╬▓ ░░░▒ ░
+end
+
+; rags' own glyphs at about a fifth of its coverage: the body's clothes under a worn outfit, so the
+; outfit's pieces carry the print and the cloth beneath reads plain.
+pattern rags-sparse scatter
+   ∙      ░     ═
+       ║     ▓
+ ░          ∙
+  ∙      ▒     ≡
+    ═        ░
+ ∙        ░      ║
+       ≡    ∙
+  ▒          ∙  ═
+end
+
+pattern skin-dots scatter
+ ·''∙∙ ░░· ·░''░
+░·∙░''··∙░∙░··'░
+∙'·░∙∙''·░∙░· ·'
+·'·  ''  ░░·░░·░
+░░ ·∙ · ∙∙░∙· ░░
+░░∙ ''░ ░░∙  ∙░·
+   ∙░'∙'░'·'░░ ∙
+·∙'░░░∙· ░∙∙·░∙∙
+end
+
+pattern hair-waves scatter
+~▓≡≡ ≈~≈  ≡  ≈ ▓
+≈ ≡▓~≡~~ ▓≈~ ≈▓~
+▓~~≈ ≈~  ≈≈≡~≈~▓
+≈ ~~ ▓≡≈▓≈▓▓≡▓≡▓
+≡~▓▓~▓▓≡▓ ≈≈≡≡≈~
+≈~ ≡~▓▓≡~~▓▓≡≡≡
+▓≡≡~≈≡▓~ ≈▓~≈▓≈~
+  ≈≈≈≡≡ ~≈~~≈~≈~
+end
+
+; ---- one shade, one gap - the red checker shirt ----
+
+pattern checker-light
+░
+ ░
+end
+
+pattern checker-medium
+▒
+ ▒
+end
+
+pattern checker-dense
+▓
+ ▓
+end
+
+; ---- pattern maker presets, 2026-09-14 ----
+; Each is the smallest tile the maker's 80x13 output repeats exactly - checked
+; across the whole output, not read off by eye. Plain ASCII: they were drawn for
+; tall cells, so try them with a region's `cell = tall`.
+
+pattern chessboard
+#
+ #
+end
+
+pattern diamonds
+/\
+\/
+end
+
+pattern honeycomb
+/__\
+\  /
+end
+
+pattern wall
+_|__
+___|
+end
+
+pattern zebra
+xo
+o
+end
+
+pattern links
+O
+│
+end
+
+pattern chevron
+\\//
+//\\
+end
+
+pattern dots
+.
+ .
+end
+
+pattern cross-mesh
++-
+-+
+end
+
+; ---- more patterns, 2026-09-14 ----
+; Generic motifs drawn here, each checked to repeat seamlessly by tiling it. Shapes
+; the two online pattern galleries they were drawn from use - hexagons, lattices, keys,
+; triangles - are redrawn as the smallest tile; no signed or pictorial piece is copied.
+; The random ones were generated once: maze is 10 PRINT's slashes, and circuit joins
+; random box lines on a tile that wraps, so neither shows a seam.
+
+; the galleries' geometry, redrawn as tiles - plain ASCII, so try `cell = tall`
+
+pattern hex-large
+/      \____
+\      /
+ \____/
+ /    \
+end
+
+pattern hex-small
+  \__/
+__/  \
+end
+
+pattern lattice
+ X
+/ \
+\ /
+end
+
+pattern key
+ |___  |
+    _|_|
+_  | |__
+_|_|
+end
+
+pattern triangles
+/__\
+\  /
+ \/
+ /\
+end
+
+pattern scallops
+ )(
+(  )
+end
+
+pattern crosses
+|_     _
+|
+   _|_
+    |
+end
+
+pattern studs
+---+---+
+ o | o
+---+---+
+ o   o |
+end
+
+pattern stairs
+\  \__
+ \__\
+__\  \
+end
+
+pattern hatch
+  /
+ /
+/
+end
+
+; code page 437's own - blocks, shades and box lines, bolder than ASCII line art
+
+pattern tartan
+░║░░│░
+═╬══╪═
+░║░░│░
+░║░░│░
+─╫──┼─
+░║░░│░
+end
+
+pattern basket
+═══║║║
+═══║║║
+═══║║║
+║║║═══
+║║║═══
+║║║═══
+end
+
+pattern argyle
+▓▓▓░░▓▓▓
+▓▓░▒▒░▓▓
+▓░▒▒▒▒░▓
+░▒▒▒▒▒▒░
+░▒▒▒▒▒▒░
+▓░▒▒▒▒░▓
+▓▓░▒▒░▓▓
+▓▓▓░░▓▓▓
+end
+
+pattern gingham
+▓▓▒▒
+▓▓▒▒
+▒▒░░
+▒▒░░
+end
+
+pattern houndstooth
+████  ▄▀
+████▄▀
+  ▄▀████
+▄▀  ████
+end
+
+pattern herringbone
+▀  ▄  ▀▄
+ ▄▀ ▀▄
+▀  ▄  ▀▄
+ ▄▀ ▀▄
+end
+
+pattern bricks
+▄▄▄
+▄ ▄▄
+end
+
+pattern slab
+▄
+end
+
+pattern trickle
+│
+:
+│
+'
+end
+
+; Lava falling as a sheet: solid down the middle, shading off at both edges, every row whole so no edge is notched.
+pattern lava-fall
+░▒▓██████▓▒░
+end
+
+pattern stripes
+▀
+end
+
+pattern pinstripe
+  │
+end
+
+pattern square-wave
+┐┌
+└┘
+end
+
+pattern key-box
+┌──┐
+│┌┐│
+││└┘
+┘└───
+end
+
+pattern polka
+   •
+ 
+ •
+ 
+end
+
+; A hanging chain, one link a cell: face-on, then edge-on.
+pattern chain
+0
+│
+end
+
+pattern rings
+   ○
+ ○
+end
+
+pattern suits
+   ♥   ♠
+ 
+ ♦   ♣
+ 
+end
+
+; random tiles - they look busy without needing room to repeat, so `scatter`
+
+pattern maze scatter
+/\\//\\\//\\//\/
+\/\\\\\\/\\/\/\\
+/////\\/\\\\/\//
+\///\\///\\///\/
+/\\\\/\///\\\///
+\\\\///\\//\\\/\
+\/\\\//\\\/\\\\/
+\/\//\//\///\\/\
+end
+
+pattern circuit scatter
+┼┼┤┌┤┌┬─└┬┬┬┬┤└┴
+┘││├┤├┘┌┬┴┴┤└┤ ─
+ ─┼┼┤└─┘│┌─│─┘
+│─┤├┼┐┌─└┤   ┌┐│
+││││││└─││ ──┘├┘
+┼┴─┐┌──┐├┬─ │ └─
+├─│├┴──┘│└─┬┼┐│
+┤││└┐   ├──┘└┼┼┬
+end
+
+pattern circuit-sparse scatter
+┐ ││ │─┐││├┼─┤│└
+││││───└┬┼┼┘ ││
+ ││─┐   └┴┴── │
+  └─┘   ┌─ ────
+──┬─┐──│└───┌┐┌─
+┐│└─└─││┌───┘└┴┬
+┼┘──  ││││┌── ┌┴
+┘ ┌┐ ││└┬┘├┐─┐│┌
+end
+
+pattern stars scatter
+  *            ☼
+    ·      ☼
+ ∙    ·
+   · ∙ ·   ☼
+ ☼ ∙      ∙ ·
+   ·  ·
+ *
+   *
+end
+
+; ---- the world's objects ----
+; The patterns above are textile and geometric and none reads as water, bone, web or
+; foliage. Each object's animation carries half its character, so judge these with the
+; animation they are shown with, not on their own.
+
+; Standing water. Broken wave marks rather than a full surface - a puddle of solid glyphs
+; reads as tile, and what says "water" is the gaps moving under a pulse.
+pattern ripple
+≈ ~
+ ≈≈
+~≈
+end
+
+; Falling water. Sparse and off-centre so a rain animation never marches in step.
+pattern droplets scatter
+∙  :
+ '
+:  ∙
+  '
+end
+
+; A web: threads meeting at a node. Repeated it becomes a mesh, which is what a web is.
+pattern web-radial
+\│/
+─┼─
+/│\
+end
+
+; A torch's embers. The marker is tiny on purpose, so this is what carries the fire.
+pattern embers scatter
+∙♦∙
+ ▲
+░ ░
+end
+
+; Bone. Broken lengths, nothing whole, and deliberately no curve.
+pattern bone-shards scatter
+═ ─
+ ≡
+─ ═
+end
+
+; A column's fluting. ONE ROW, so it repeats into unbroken vertical lines - which is what
+; makes a column read as tall from overhead, where its height is otherwise invisible.
+pattern fluting
+║│║
+end
+
+; Stone. Irregular blotches of two densities; `scatter` so no two faces agree.
+pattern stone-grain scatter
+▒ ░
+ ▒
+░ ▒
+end
+
+; Leaves, in clumps. Card suits are the only foliage shapes code page 437 has.
+pattern leaves scatter
+♣ ♠
+ ♣
+♠ ♣
+end
+
+; Grass. Short uprights of two heights, leaning apart.
+pattern blades
+│ '
+' │
+end
+
+; A hanging vine: an unbroken stem with leaves budding off it. Two wide, so a tall region
+; stacks it down the whole 7-12 cells ivy hangs without the stem breaking.
+pattern vine
+│♣
+│
+♣│
+ │
+end
+
+; The mouth of a shaft, thinning toward nothing.
+pattern void-fade
+▓▒
+▒░
+░
+ ░
+end
+
+; The title: the name in five-row block letters, one tile, for the title slot's quad.
+pattern title
+                                                                                 
+  ██▓  █████ █████ ▓██▓▒ ██▒█    ▓   █ █   █  █▓█  █▓███   ██▓   ████  █▓▓ ███▓  
+ ▓   █ ▒       █   █     ▓   █   █   █ ▓   ▓ █   ▓   █      ▓    █   █  █  ▓   ▒ 
+ █▓█▓▓ ▒▓██    ▓   ████  █▓██    █ ▓ █ ██▓▓▓ ███▓▒   █      █    █   █  █  █   █ 
+ █   █ █       █   ▒     ▓  █    ▓▓ █▓ ▓   ▓ ▓   █   █      █    ▓   █  █  █   █ 
+ █   █ █       █   ███▓▓ █   █   █   █ █   ▓ ▒   █   █     ███   █▓██  ▒██ ███▒  
+                                                                                 
+end
+
+; Dense moss: a cushion with hardly a gap, tufts and leaves among shades; `scatter` so no two patches agree.
+pattern moss-dense scatter
+░▒♣▒░•▒░
+▒♣░▒•░♣▒
+░▒▒♣░▒░•
+♣░•▒▒♣▒░
+▒░▒░♣░•▒
+end
+
+; Black mold: ink-stain blooms of two densities, never a grid; `scatter` so no two walls agree.
+pattern mold scatter
+▓▒ ░
+▒▓▓▒
+ ░▒
+▒  ░
+end
+
+; Pale fungus in the mortar: velvety specks, sparse, so it reads as growth and not as a print.
+pattern lichen scatter
+∙°∙
+ ∙ °
+°  ∙
+end
+
+; A woven hanging: a gold lattice with diamonds in its squares, in the look's own two colours.
+pattern tapestry
+═╬═╬
+♦║♦║
+═╬═╬
+║♦║♦
+end
+
+; A painting's cells: dense, so each carries its tint, and uneven, so the grid reads as brushwork.
+pattern canvas scatter
+▓▒█
+▒█▓
+█▓▒
+end
